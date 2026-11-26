@@ -1,0 +1,31 @@
+services:
+    backend:
+        container_name: NAME_BACKEND
+        restart: always
+        build:
+            context: .
+            dockerfile: .conf/production/backend/Dockerfile
+            args:
+                ARG_PORT: ${BACKEND_PORT}
+                ARG_BACKEND_URL: ${BACKEND_URL}
+        env_file: production.env
+        volumes:
+            - uploads:/opt/app/public
+        ports:
+            - ${BACKEND_PORT}:${BACKEND_PORT}
+        depends_on:
+            - db
+    db:
+        container_name: NAME_DB
+        restart: always
+        image: postgres:16-alpine
+        environment:
+            POSTGRES_USER: ${DATABASE_USERNAME}
+            POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+            POSTGRES_DB: ${DATABASE_NAME}
+            PGPORT: ${DATABASE_PORT}
+        volumes:
+            - data:/var/lib/postgresql/data/ #using a volume
+volumes:
+    data:
+    uploads:

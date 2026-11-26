@@ -1,0 +1,16 @@
+# Git
+.git
+.gitignore
+
+# Node
+npm-debug.log
+**/node_modules
+**/.husky
+**/tests
+
+# Docker
+docker-compose*.yml
+Dockerfile
+
+#IntelliJ
+.idea
